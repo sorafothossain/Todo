@@ -4,10 +4,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { IoIosClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
+import { removeTodo } from "@/redux/todoSlice";
 import TodoList from "./TodoList";
 
 const InputForm = () => {
   const [todo, setTodo] = useState("");
+  const [showRemoved, setRemoved] = useState(false);
+
 
   const dispatch = useDispatch()
 
@@ -38,10 +41,23 @@ const InputForm = () => {
         <button className="bg-green-600 h-full px-4 py-2 text-xs md:text-base uppercase text-white rounded-md">
           Add todo
         </button>
+        
       </form>
       {/* todo list */}
       <div className="flex flex-col gap-4 ">
         <TodoList/>
+      </div>
+      <div className = "relative">
+      <button onClick ={()=>setRemoved(dispatch(removeTodo))} className = "  text-slate-300  hover:bg-slate-200 hover:text-red-600 duration-300 border p-2 shadow-inner shadow-red-200 rounded-md border-red-500 mt-2">
+        Remove todo
+      </button>
+      {showRemoved && <div className = " border bg-black/50 text-yellow-500 shadow-md shadow-red-200 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-2 rounded-lg mt-2">
+          <p>Are you sure want to removed?</p>
+          <div  className = "flex justify-center gap-6">
+          <button onClick={()=>setRemoved(false)} className = "bg-red-600 px-2  border border-red-500 rounded-md">No</button>
+          <button onClick={()=>setRemoved(true)} className = "bg-green-600 px-2  rounded-md">Yes</button>
+          </div>
+        </div>}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { deleteTodo } from "@/redux/todoSlice";
+import toast from "react-hot-toast";
 interface Item {
   item: {
     _id: string;
